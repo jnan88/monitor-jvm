@@ -1,10 +1,11 @@
 # jvm运行状态监控
 ## 项目介绍
 本项目通过MXBean获取jvm运行的状态信息，并通过Netty提供http服务提取数据。
-默认端口20000,可以通过monitor.port系统参数配置
-如:
+默认端口20000,
+1. 可以通过monitor.port系统参数配置，如:
 > -Dmonitor.port=10001
 
+2. 可以通过monitor.skip=true配置不启动
 
 监控项目如下：
 1. os:操作系统信息
@@ -159,3 +160,5 @@ memoryAll:为init,used,committed,max
 	"requestStatus":"SUCCESS"
 }
 ```
+## 更新记录
+1. 20180111：增加通过系统配置monitor.skip=true不开启，避免修改配置文件

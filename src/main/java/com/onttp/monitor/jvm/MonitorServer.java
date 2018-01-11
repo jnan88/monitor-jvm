@@ -43,6 +43,10 @@ public class MonitorServer {
 	}
 
 	public void start() {
+		String monitorSkip = System.getProperty("monitor.skip");
+		if (Boolean.valueOf(monitorSkip)) {
+			return;
+		}
 		bossGroup = new NioEventLoopGroup(1);
 		workerGroup = new NioEventLoopGroup();
 		String envPortStr = System.getProperty("monitor.port");
