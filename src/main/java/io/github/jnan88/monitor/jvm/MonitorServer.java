@@ -12,10 +12,10 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
  * 
- * @Description: jvm监控http服务启动入口
- * @Author qizai
- * @Version: 0.0.1
- * @CreateAt 2018年1月11日-下午1:42:17
+ * 
+ * @author qizai
+ * @version: 0.0.1 2018年1月12日-上午10:45:57
+ * 描述： jvm监控http服务启动入口
  *
  */
 public class MonitorServer {

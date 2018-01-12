@@ -9,10 +9,9 @@ import lombok.Getter;
 
 /**
  * 
- * @Description: TODO(添加描述)
- * @Author qizai
- * @Version: 0.0.1
- * @CreateAt 2018年1月11日-下午2:04:38
+ * 
+ * @author qizai
+ * @version: 0.0.1 2018年1月12日-上午10:46:17 描述： 线程基本信息
  *
  */
 @Getter
@@ -22,6 +21,8 @@ public class ThreadInfoPO {
 
 	/**
 	 * 
+	 * @param tf
+	 *            线程信息
 	 */
 	public ThreadInfoPO(ThreadInfo tf) {
 		threadId = tf.getThreadId();

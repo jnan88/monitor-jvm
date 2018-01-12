@@ -19,6 +19,14 @@
 9. runtime：运行参数信息（启动参数等）
 
 ## 使用方法
+### maven添加依赖
+```
+<dependency>
+	<groupId>io.github.jnan88</groupId>
+	<artifactId>monitor-jvm</artifactId>
+	<version>0.0.1</version>
+</dependency>
+```
 ### 在spring中使用配置：
 
 ```

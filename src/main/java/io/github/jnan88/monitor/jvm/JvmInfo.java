@@ -21,10 +21,10 @@ import java.util.Map;
 
 /**
  * 
- * @Description: jvm运行信息获取
- * @Author qizai
- * @Version: 0.0.1
- * @CreateAt 2017年7月7日-上午10:44:21
+ * 
+ * @author qizai
+ * @version: 0.0.1 2018年1月12日-上午10:45:48
+ * 描述： jvm运行信息获取
  *
  */
 public class JvmInfo {

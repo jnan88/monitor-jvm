@@ -8,7 +8,6 @@
 	<description>This project provides the JVM runtime-related information to the outside world by using the web-provided HTTP service
 </description>
 	<url>https://github.com/jnan88/monitor-jvm</url>
-
 	<properties>
 		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
@@ -73,23 +72,10 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- GPG自动签名的插件 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.6</version>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
+	<!-- mvn clean install deploy -->
+	<!-- mvn versions:set -DnewVersion=0.0.1 clean deploy -P release -->
 	<profiles>
 		<profile>
 			<id>release</id>
@@ -181,10 +167,10 @@
 	</licenses>
 	<developers>
 		<developer>
-			<name>qizai</name>
-			<email>jnan88@qq.com</email>
-			<organization>onttp</organization>
-			<organizationUrl>http://www.onttp.com</organizationUrl>
+			<name>jnan77</name>
+			<email>jnan77@qq.com</email>
+			<organization>jnan88</organization>
+			<organizationUrl>http://jnan88.github.io</organizationUrl>
 		</developer>
 	</developers>
 	<scm>

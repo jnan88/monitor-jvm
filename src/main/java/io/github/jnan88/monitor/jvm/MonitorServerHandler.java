@@ -31,10 +31,10 @@ import io.netty.handler.codec.http.QueryStringDecoder;
 
 /**
  * 
- * @Description: 请求处理
- * @Author qizai
- * @Version: 0.0.1
- * @CreateAt 2018年1月11日-下午2:18:27
+ * 
+ * @author qizai
+ * @version: 0.0.1 2018年1月12日-上午10:46:05
+ * 描述： 请求处理
  *
  */
 public class MonitorServerHandler extends ChannelInboundHandlerAdapter {
