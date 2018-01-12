@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.onttp.monitor.jvm;
+package io.github.jnan88.monitor.jvm;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;

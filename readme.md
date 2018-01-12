@@ -22,7 +22,7 @@
 ### 在spring中使用配置：
 
 ```
-<bean class="com.onttp.monitor.jvm.MonitorServer" init-method="start" destroy-method="stop" lazy-init="false"></bean>
+<bean class="io.github.jnan88.monitor.jvm.MonitorServer" init-method="start" destroy-method="stop" lazy-init="false"></bean>
 
 ```
 ### 获取数据

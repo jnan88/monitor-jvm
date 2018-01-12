@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.onttp.monitor.jvm;
+package io.github.jnan88.monitor.jvm;
 
 import java.lang.management.ThreadInfo;
 

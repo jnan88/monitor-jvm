@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.onttp.monitor.jvm;
+package io.github.jnan88.monitor.jvm;
 
 import static io.netty.handler.codec.http.HttpResponseStatus.CONTINUE;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
