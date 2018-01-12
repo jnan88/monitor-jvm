@@ -51,7 +51,7 @@ public class MonitorServer {
 
 	/**
 	 * @param basepath
-	 *            the {@link #basepath} to set
+	 *            the {@link #BASE_PATH} to set
 	 */
 	public static void setBasepath(String basepath) {
 		BASE_PATH = basepath;
