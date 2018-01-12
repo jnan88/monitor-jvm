@@ -22,16 +22,26 @@ import java.util.Map;
 /**
  * 
  * 
+ * 描述： jvm运行信息获取
+ * 
  * @author qizai
  * @version: 0.0.1 2018年1月12日-上午10:45:48
- * 描述： jvm运行信息获取
  *
  */
 public class JvmInfo {
-	public static String	ALL	= "os,sys,gc,thread,threads,memory,memoryAll,compilation,runtime";
+	public final static String	ALL	= "os,sys,gc,thread,threads,memory,memoryAll,compilation,runtime";
 
-	private static int		MB	= 1024 * 1024;
+	private final static int	MB	= 1024 * 1024;
 
+	/**
+	 * 
+	 * @param vminfos
+	 *            收集数据集合
+	 * @param type
+	 *            内存类型
+	 * @param heapMemory
+	 *            内存信息
+	 */
 	private static void putVmMemoryInfo(Map<String, Object> vminfos, String type, MemoryUsage heapMemory) {
 		vminfos.put(type + "Init", heapMemory.getInit());
 		vminfos.put(type + "Used", heapMemory.getUsed());
@@ -44,9 +54,17 @@ public class JvmInfo {
 		vminfos.put(type + "MaxMb", heapMemory.getMax() / MB);
 	}
 
+	/**
+	 * 内存信息：init,used,max,committed-保证java虚拟机能使用的内存量>=used
+	 * 
+	 * @param vminfos
+	 *            收集数据集合
+	 * @param type
+	 *            内存类型
+	 * @param heapMemory
+	 *            内存信息
+	 */
 	private static void putVmMemoryAllInfo(Map<String, Object> vminfos, String type, MemoryUsage heapMemory) {
-		// vminfos.put("memoryAllDesc",
-		// "init,used,max,committed-保证java虚拟机能使用的内存量>=used");
 		vminfos.put(type + "AllMb", heapMemory.getInit() / MB + "," + heapMemory.getUsed() / MB + ","
 				+ heapMemory.getCommitted() / MB + "," + heapMemory.getMax() / MB);
 	}

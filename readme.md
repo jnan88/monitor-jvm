@@ -6,6 +6,7 @@
 > -Dmonitor.port=10001
 
 2. 可以通过monitor.skip=true配置不启动
+3. 可以通过monitor.path=/monitor 配置请求路径
 
 监控项目如下：
 1. os:操作系统信息
@@ -42,7 +43,8 @@
 |参数名|作用|描述|
 |--|--|
 |type|获取结果的内容|os,sys,gc,thread,threads,memory,compilation,runtime多个使用英文逗号间隔,all表示获取全部|
-|pretty|是否对结果进行格式化，默认不格式化|任意参数|
+|pretty|是否对结果进行格式化，默认不格式化|任意值|
+|format|是否对结果进行分组，分组则gc的参数在gc节点下，默认不分组|任意值|
 
 响应参数：
 memoryAll:为init,used,committed,max
@@ -169,4 +171,5 @@ memoryAll:为init,used,committed,max
 }
 ```
 ## 更新记录
-1. 20180111：增加通过系统配置monitor.skip=true不开启，避免修改配置文件
+1. 20180111：新增通过系统配置monitor.skip=true不开启，避免修改配置文件
+2. 20180112：新增请求参数format控制是否对结果进行分组，新增通过monitor.path=/monitor 配置请求路径，代码优化通过反射调用获取结果信息
