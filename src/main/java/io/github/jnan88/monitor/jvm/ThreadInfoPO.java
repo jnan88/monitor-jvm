@@ -9,9 +9,10 @@ import lombok.Getter;
 
 /**
  * 
+ * 描述： 线程基本信息
  * 
  * @author qizai
- * @version: 0.0.1 2018年1月12日-上午10:46:17 描述： 线程基本信息
+ * @version: 0.0.1 2018年1月12日-上午10:46:17
  *
  */
 @Getter

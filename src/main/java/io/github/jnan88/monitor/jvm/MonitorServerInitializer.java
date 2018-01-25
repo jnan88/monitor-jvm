@@ -13,7 +13,6 @@ import io.netty.handler.codec.http.HttpServerCodec;
  * 
  * @author qizai
  * @version: 0.0.1 2018年1月12日-上午10:46:13
- * 描述： TODO(添加描述)
  *
  */
 public class MonitorServerInitializer extends ChannelInitializer<SocketChannel> {

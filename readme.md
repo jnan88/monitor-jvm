@@ -31,7 +31,7 @@
 ### 在spring中使用配置：
 
 ```
-<bean class="io.github.jnan88.monitor.jvm.MonitorServer" init-method="start" destroy-method="stop" lazy-init="false"></bean>
+<bean class="io.github.jnan88.monitor.jvm.MonitorServer" init-method="start" destroy-method="stop" lazy-init="true"></bean>
 
 ```
 ### 获取数据
@@ -173,3 +173,4 @@ memoryAll:为init,used,committed,max
 ## 更新记录
 1. 20180111：新增通过系统配置monitor.skip=true不开启，避免修改配置文件
 2. 20180112：新增请求参数format控制是否对结果进行分组，新增通过monitor.path=/monitor 配置请求路径，代码优化通过反射调用获取结果信息
+3. 20180125：测试发现如果lazy-init=true时，会造成spring的启动被lock住，无法正常启动，所以需要在Spring启动中通过ApplicationContext获取一次对象进行初始化进行启动
