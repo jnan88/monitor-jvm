@@ -5,10 +5,14 @@ package io.github.jnan88.monitor.jvm;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
+import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.http.HttpServerCodec;
 
 /**
  * 
@@ -27,8 +31,11 @@ public class MonitorServer {
 	public final static String	LOCAL_IP	= "127.0.0.1";
 	public final static String	KEY_PRETTY	= "pretty";
 	public final static String	KEY_FORMAT	= "format";
-	public static String		LOCAL_URL	= String.format("http://%s:%d%s?type=[]|%s|%s", LOCAL_IP, LOCAL_PORT,
-			BASE_PATH, JvmInfo.ALL, KEY_PRETTY, KEY_FORMAT);
+
+	public static String getLocalUrl() {
+		return String.format("http://%s:%d%s?type=[]|%s|%s", LOCAL_IP, LOCAL_PORT, BASE_PATH, JvmInfo.ALL, KEY_PRETTY,
+				KEY_FORMAT);
+	}
 
 	public static int toInt(final String str, final int defaultValue) {
 		if (str == null) {
@@ -77,7 +84,14 @@ public class MonitorServer {
 			ServerBootstrap b = new ServerBootstrap();
 			b.option(ChannelOption.SO_BACKLOG, 1024);
 			b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
-					.childHandler(new MonitorServerInitializer());
+					.childHandler(new ChannelInitializer<SocketChannel>() {
+						@Override
+						protected void initChannel(SocketChannel ch) throws Exception {
+							ChannelPipeline p = ch.pipeline();
+							p.addLast(new HttpServerCodec());
+							p.addLast(new MonitorServerHandler());
+						}
+					});
 			Channel ch = b.bind(LOCAL_PORT).sync().channel();
 			info();
 			ch.closeFuture().sync();
@@ -90,7 +104,7 @@ public class MonitorServer {
 
 	private void info() {
 		System.out.println("##############################################");
-		System.out.println(String.format("MonitorServer listen on %s", LOCAL_URL));
+		System.out.println(String.format("MonitorServer listen on %s", getLocalUrl()));
 		System.out.println("##############################################");
 	}
 
