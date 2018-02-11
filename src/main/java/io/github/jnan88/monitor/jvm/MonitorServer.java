@@ -3,16 +3,9 @@
  */
 package io.github.jnan88.monitor.jvm;
 
-import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.http.HttpServerCodec;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 
@@ -24,17 +17,24 @@ import io.netty.handler.codec.http.HttpServerCodec;
  *
  */
 public class MonitorServer {
-	private EventLoopGroup		bossGroup	= null;
-	private EventLoopGroup		workerGroup	= null;
 	public static int			LOCAL_PORT	= 20000;
-	public static String		BASE_PATH	= "/monitor";
+	public static String		BASE_PATH	= "/oper";
 	public final static String	LOCAL_IP	= "127.0.0.1";
-	public final static String	KEY_PRETTY	= "pretty";
-	public final static String	KEY_FORMAT	= "format";
+	public final static String	KEY_PRETTY	= "v";
+	public final static String	KEY_FORMAT	= "f";
+	public final static String	KEY_TYPE	= "t";
 
 	public static String getLocalUrl() {
-		return String.format("http://%s:%d%s?type=[]|%s|%s", LOCAL_IP, LOCAL_PORT, BASE_PATH, JvmInfo.ALL, KEY_PRETTY,
-				KEY_FORMAT);
+		return String.format("http://%s:%d%s?%s=[]|%s|%s", LOCAL_IP, LOCAL_PORT, BASE_PATH, KEY_TYPE, JvmInfo.ALL,
+				KEY_PRETTY, KEY_FORMAT);
+	}
+
+	public static Map<String, Object> errorData() {
+		Map<String, Object> ret = new HashMap<>();
+		ret.put("time", new Date());
+		ret.put("status", "FAIL");
+		ret.put("url", MonitorServer.getLocalUrl());
+		return ret;
 	}
 
 	public static int toInt(final String str, final int defaultValue) {
@@ -64,7 +64,7 @@ public class MonitorServer {
 		BASE_PATH = basepath;
 	}
 
-	public void start() {
+	public static void init() {
 		String monitorSkip = System.getProperty("monitor.skip");
 		if (Boolean.valueOf(monitorSkip)) {
 			return;
@@ -73,52 +73,17 @@ public class MonitorServer {
 		if (null != monitorPath && !"".equals(monitorPath.trim())) {
 			BASE_PATH = monitorPath.startsWith("/") ? monitorPath : "/" + monitorPath;
 		}
-		bossGroup = new NioEventLoopGroup(1);
-		workerGroup = new NioEventLoopGroup();
 		String envPortStr = System.getProperty("monitor.port");
 		int envPort = toInt(envPortStr, 0);
 		if (envPort > 0) {
 			LOCAL_PORT = envPort;
 		}
-		try {
-			ServerBootstrap b = new ServerBootstrap();
-			b.option(ChannelOption.SO_BACKLOG, 1024);
-			b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
-					.childHandler(new ChannelInitializer<SocketChannel>() {
-						@Override
-						protected void initChannel(SocketChannel ch) throws Exception {
-							ChannelPipeline p = ch.pipeline();
-							p.addLast(new HttpServerCodec());
-							p.addLast(new MonitorServerHandler());
-						}
-					});
-			Channel ch = b.bind(LOCAL_PORT).sync().channel();
-			info();
-			ch.closeFuture().sync();
-		} catch (InterruptedException e) {
-		} finally {
-			bossGroup.shutdownGracefully();
-			workerGroup.shutdownGracefully();
-		}
 	}
 
-	private void info() {
+	public void info() {
 		System.out.println("##############################################");
 		System.out.println(String.format("MonitorServer listen on %s", getLocalUrl()));
 		System.out.println("##############################################");
 	}
 
-	public void stop() {
-		if (null != bossGroup) {
-			bossGroup.shutdownGracefully();
-		}
-		if (null != workerGroup) {
-			workerGroup.shutdownGracefully();
-		}
-		System.out.println("MonitorServer stop :" + LOCAL_PORT);
-	}
-
-	public static void main(String[] args) {
-		new MonitorServer().start();
-	}
 }

@@ -76,11 +76,7 @@ public class MonitorServerHandler extends ChannelInboundHandlerAdapter {
 	}
 
 	private static String error() {
-		Map<String, Object> ret = new HashMap<>();
-		ret.put("requestTime", new Date());
-		ret.put("requestStatus", "FAIL");
-		ret.put("error", "place use " + MonitorServer.getLocalUrl());
-		String jsonString = JSON.toJSONString(ret);
+		String jsonString = JSON.toJSONString(MonitorServer.errorData());
 		return jsonString;
 	}
 
@@ -96,13 +92,14 @@ public class MonitorServerHandler extends ChannelInboundHandlerAdapter {
 		}
 		Map<String, List<String>> parame = decoder.parameters();
 		// 获取监控的类型
-		List<String> typeString = parame.get("type");
+		List<String> typeString = parame.get(MonitorServer.KEY_TYPE);
 		Map<String, Object> ret = new HashMap<>();
-		ret.put("requestType", typeString);
+		ret.put("type", typeString);
+		ret.put("url", MonitorServer.getLocalUrl());
 		if (null == typeString || typeString.isEmpty()) {
 			return error();
 		}
-		ret.put("requestTime", new Date());
+		ret.put("ts", new Date());
 		boolean isPretty = parame.containsKey(MonitorServer.KEY_PRETTY);
 		boolean isFormat = parame.containsKey(MonitorServer.KEY_FORMAT);
 		String types = typeString.get(0);
@@ -127,15 +124,5 @@ public class MonitorServerHandler extends ChannelInboundHandlerAdapter {
 		return jsonString;
 	}
 
-	/**
-	 * 
-	 * 描述： 监控类型
-	 * 
-	 * @author qizai
-	 * @version: 0.0.1 2018年1月25日-下午12:08:43
-	 *
-	 */
-	enum MonitorType {
-		gc, os, sys, runtime, thread, threads, compilation, memory, memoryAll
-	}
+	
 }

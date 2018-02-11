@@ -67,6 +67,7 @@ public class JvmInfo {
 	private static void putVmMemoryAllInfo(Map<String, Object> vminfos, String type, MemoryUsage heapMemory) {
 		vminfos.put(type + "AllMb", heapMemory.getInit() / MB + "," + heapMemory.getUsed() / MB + ","
 				+ heapMemory.getCommitted() / MB + "," + heapMemory.getMax() / MB);
+		vminfos.put("descMemoryMb", "Init/Used/Committed/Max");
 	}
 
 	public static Map<String, Object> compilation() {
