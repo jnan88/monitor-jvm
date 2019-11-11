@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jnan88</groupId>
 	<artifactId>monitor-jvm</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>This project provides the JVM runtime-related information to the outside world by using the web-provided HTTP service
 </description>
